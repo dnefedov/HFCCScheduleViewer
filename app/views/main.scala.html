@@ -1,0 +1,40 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+        <title>@Messages("app.title") - @title</title>
+
+
+        <link rel="stylesheet"
+              media="screen"
+              href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+
+        <script src="http://code.jquery.com/jquery-1.8.3.js"
+                type="text/javascript"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"
+                type="text/javascript"></script>
+
+        <script>
+            $(document).ready(function() {
+                $(".more-info-link").click(function() {
+                    $("#details").load("details?broadcast=" + $(this).attr("id"));
+                    $("#details").dialog();
+                });
+            });
+        </script>
+
+
+        <link rel="stylesheet" media="screen"
+              href="@routes.Assets.at("stylesheets/main.min.css")">
+        <link rel="shortcut icon" type="image/png"
+              href="@routes.Assets.at("images/favicon.png")">
+
+    </head>
+
+    <body>
+        @content
+    </body>
+</html>

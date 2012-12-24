@@ -1,0 +1,49 @@
+@(pager: Pager[models.radio.Broadcast],
+  baseUrl: String,
+  queryString: Map[String, Seq[String]])
+
+
+@url(pageIndex: Int) = @{
+
+  UrlUtil.fullUrl(
+    baseUrl,
+    queryString + (Pager.paramName -> Seq(pageIndex.toString)))
+
+}
+
+
+@if(pager.items.nonEmpty) {
+
+  @if(pager.validPageIndex == 1) {
+    &#x25C2;&#x25C2;
+  } else {
+    <a class="pager" href="@url(1)">&#x25C2;&#x25C2;</a>
+  }
+  @if(pager.validPageIndex == 1) {
+    &#x25C2;
+  } else {
+    <a class="pager" href="@url(pager.validPageIndex - 1)">&#x25C2;</a>
+  }
+
+
+  Page @pager.validPageIndex
+  of
+  @if(pager.validPageIndex == pager.pageCount) {
+    @pager.pageCount
+  } else {
+    <a class="pager" href="@url(pager.pageCount)">@pager.pageCount</a>
+  }
+
+
+  @if(pager.validPageIndex == pager.pageCount) {
+    &#x25B8;
+  } else {
+    <a class="pager" href="@url(pager.validPageIndex + 1)">&#x25B8;</a>
+  }
+  @if(pager.validPageIndex == pager.pageCount) {
+    &#x25B8;&#x25B8;
+  } else{
+    <a class="pager" href="@url(pager.pageCount)">&#x25B8;&#x25B8;</a>
+  }
+
+}

@@ -1,0 +1,388 @@
+@(schedule: models.radio.Schedule,
+  queryString: Map[String, Seq[String]],
+  form: Form[models.radio.query.Query],
+  sortKeysOption: Option[models.radio.query.SortKeys.Type],
+  pagerOption: Option[Pager[models.radio.Broadcast]])
+
+@import models.radio.query.{SearchKey, SortKey, SortKeys}
+
+@url(keyName: String, keyValue: String, keepPage: Boolean = false) = @{
+
+  val queryStringWithNewKeyValue = queryString + (keyName -> Seq(keyValue))
+
+  val updatedQueryString = if (keepPage)
+    queryStringWithNewKeyValue
+  else
+    queryStringWithNewKeyValue - Pager.paramName
+
+  UrlUtil.fullUrl(routes.Application.browse.url, updatedQueryString)
+
+}
+
+@sortUrl(sortKeyName: SortKey.Name.Value, reverse: Boolean = false) = @{
+
+  url(
+    SortKeys.paramName,
+    SortKeys.prependAndFormat(sortKeysOption.get, sortKeyName, reverse))
+
+}
+
+@attr(name: String, default: Any, actual: Any) = {
+
+  @if(actual != default) {
+
+    @toHtmlArgs(Map(Symbol(name) -> actual))
+
+  }
+
+}
+
+@attrs(argsOption: Option[Map[Symbol, Any]]) = { @argsOption match {
+
+    case Some(someArgs) => { @toHtmlArgs(someArgs) }
+
+    case None => {}
+
+  }
+}
+
+@caption(
+  title: String,
+  rowspan: Int = 1,
+  colspan: Int = 1,
+  sortKeyNameOption: Option[SortKey.Name.Value] = None) = {
+
+  <th @attr("rowspan", 1, rowspan) @attr("colspan", 1, colspan)>
+
+    @sortKeysOption match {
+
+      case Some(someSortKeys) => {
+
+        @sortKeyNameOption match {
+
+          case Some(someSortKeyName) => {
+
+            <a class="sort" href="@sortUrl(someSortKeyName)">@Html(title)</a>
+
+            @if(someSortKeyName == someSortKeys.head.name) {
+              <br>
+              <a class="sort" href="@sortUrl(someSortKeyName, reverse = true)">
+                @if(someSortKeys.head.asc){&#x25B2;}else{&#x25BC;}
+              </a>
+            }
+
+          }
+
+          case None => { @Html(title) }
+
+        }
+
+      }
+      case None => { @Html(title) }
+    }
+
+  </th>
+
+}
+
+@input(
+  placeholder: String,
+  searchKey: SearchKey.Value,
+  inputType: String = "text",
+  colspan: Int = 1,
+  argsOption: Option[Map[Symbol, Any]] = None) = {
+
+  <th @attr("colspan", 1, colspan)>
+
+    @defining(form(searchKey.toString).value.getOrElse("")) { searchValue =>
+
+      <input type="@inputType"
+             id="@searchKey.toString"
+             name="@searchKey.toString" @attrs(argsOption)
+             placeholder="@if(searchValue.isEmpty){@placeholder}else{@searchValue}"
+             value="@searchValue"
+             class="@if(form(searchKey.toString).hasErrors){error}">
+    }
+
+  </th>
+}
+
+@data(
+  text: String,
+  dataClass: String,
+  searchKeyOption: Option[SearchKey.Value] = None) = {
+
+  <td class="@dataClass">
+
+    @searchKeyOption match {
+
+      case Some(someSearchKey) => {
+        <a class="search" href="@url(someSearchKey.toString, text)">@Html(text)</a>
+      }
+
+      case None => { @Html(text)}
+
+    }
+
+  </td>
+}
+
+
+
+<p style="float:right; margin-top:0">
+    <a href="/upload">Upload new schedule data</a>
+</p>
+
+<h1>@Messages("app.title")</h1>
+
+<ul>
+    <li>Click links in table header to sort data.</li>
+    <li>Click triangle in table header to reverse sort order.</li>
+    <li>Click links in data to search for similar data.</li>
+</ul>
+
+<p style="margin-bottom:1.67em">Times and dates are in UTC.</p>
+
+@helper.form(action = routes.Application.browse) {
+
+<input type="hidden" id="sort" name="sort" value="@(form("sort").value.get)">
+
+<table style="clear:both">
+
+    <thead>
+
+    <tr class="caption">
+@caption(
+  "Station",
+  rowspan = 2,
+  sortKeyNameOption = Some(SortKey.Name.StationName))
+@caption(
+  "Country",
+  rowspan = 2,
+  sortKeyNameOption = Some(SortKey.Name.StationCountry))
+
+@caption("Date", colspan = 2)
+@caption("Days<br>of<br>Week", rowspan = 3)
+@caption("Time", colspan = 2)
+
+@*
+The word "Frequency" is not wrapped in order to preserve
+the size of the frequency input text field.
+*@
+@caption(
+  "Frequency",
+  rowspan = 2,
+  sortKeyNameOption = Some(SortKey.Name.Frequency))
+
+@caption(
+  "Languages",
+  rowspan = 2,
+  sortKeyNameOption = Some(SortKey.Name.Languages))
+
+@caption("Target Zones", rowspan = 3)
+
+@caption(
+  "Power",
+  rowspan = 3,
+  sortKeyNameOption = Some(SortKey.Name.Power))
+@caption(
+  "Modu&shy;lation",
+  rowspan = 3,
+  sortKeyNameOption = Some(SortKey.Name.Modulation))
+@caption(
+  "Azi&shy;muth",
+  rowspan = 3,
+  sortKeyNameOption = Some(SortKey.Name.Azimuth))
+
+@caption(
+  "Note",
+  rowspan = 3,
+  sortKeyNameOption = Some(SortKey.Name.Note))
+
+@caption("Location", colspan = 4)
+
+@caption("More", rowspan = 3)
+    </tr>
+
+    <tr class="caption">
+@caption("Start", sortKeyNameOption = Some(SortKey.Name.StartDate))
+@caption("End",   sortKeyNameOption = Some(SortKey.Name.EndDate))
+
+@caption("Start", sortKeyNameOption = Some(SortKey.Name.StartTime))
+@caption("End",   sortKeyNameOption = Some(SortKey.Name.EndTime))
+
+@caption("Name",    sortKeyNameOption = Some(SortKey.Name.LocationName))
+@caption("Country", sortKeyNameOption = Some(SortKey.Name.LocationCountry))
+@caption("Longi&shy;tude", rowspan = 2)
+@caption("Lati&shy;tude",  rowspan = 2)
+    </tr>
+
+
+
+    <tr class="search">
+@input("Station", SearchKey.StationName)
+@input("Country", SearchKey.StationCountry)
+
+@input("YYYY-MM-DD", SearchKey.Date, inputType = "date", colspan = 2)
+@input("HH:MM",      SearchKey.Time, inputType = "time", colspan = 2)
+
+@input(
+  "Number",
+  SearchKey.Frequency,
+  inputType = "number",
+  argsOption = Some(Map('min -> 2300, 'max -> 26100, 'step -> "1")))
+
+@input("Language", SearchKey.Languages)
+
+@input("Location", SearchKey.LocationName)
+@input("Country",  SearchKey.LocationCountry)
+    </tr>
+
+    <tr class="search">
+        <th colspan="19">
+            <button type="submit" class="search">Search</button>
+        </th>
+    </tr>
+    <tr class="search">
+        <th class="pager border-bottom" colspan="16">
+@pagerOption match {
+  case Some(somePager) => {
+    @views.html.pager(somePager, routes.Application.browse.url, queryString)
+  }
+  case None => { }
+}
+        </th>
+        <th class="border-bottom" colspan="3" style="text-align:right">
+            <button type="reset" class="reset">Reset</button>
+        </th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+@if(form.hasErrors || form.hasGlobalErrors) {
+
+<tr class="error">
+    <td colspan="19">
+
+There are some errors in query parameters:
+
+<ul>
+
+  @if(form("date").hasErrors) {
+    <li>Date should be in this format: YYYY-MM-DD.</li>
+  }
+
+  @if(form("time").hasErrors) {
+    <li>Time should be in this format: HH-MM.</li>
+  }
+
+
+  @if(form("frequency").hasErrors) {
+    <li>Frequency should be a number between 2300 and 26100.</li>
+  }
+
+
+  @if(form("sort").hasErrors) {
+    <li>
+        Sort parameter is invalid.
+<a href="@url(SortKeys.paramName, SortKeys.defaultParamValue, keepPage = true)">
+  Reset.
+</a>
+    </li>
+  }
+
+  @if(form("page").hasErrors) {
+    <li>
+        Page parameter should be a number greater than or equal to 1.
+<a href="@url(Pager.paramName, Pager.defaultPageIndex.toString, keepPage = true)">
+  Reset.
+</a>
+    </li>
+  }
+
+</ul>
+
+    </td>
+</tr>
+
+} else {
+
+@* aseert(pagerOption.isSome) TODO *@
+
+@if(pagerOption.get.items.isEmpty) {
+
+<tr class="empty">
+    <td colspan="19">
+        No broadcasts match your search criteria.
+    </td>
+</tr>
+
+} else {
+
+@pagerOption.get.validPageItems.map { broadcast =>
+    <tr class="data">
+@data(
+  schedule.stationName(broadcast.stationId),
+  dataClass = "station-name",
+  searchKeyOption = Some(SearchKey.StationName))
+@data(
+  schedule.stationCountryName(broadcast.countryId),
+  dataClass = "station-country",
+  searchKeyOption = Some(SearchKey.StationCountry))
+
+
+@data(broadcast.startDateText, dataClass = "date start", searchKeyOption = Some(SearchKey.Date))
+@data(broadcast.endDateText,   dataClass = "date",       searchKeyOption = Some(SearchKey.Date))
+
+@data(broadcast.daysOfWeek, dataClass = "days")
+
+@data(broadcast.startTimeText, dataClass = "time",     searchKeyOption = Some(SearchKey.Time))
+@data(broadcast.endTimeText,   dataClass = "time end", searchKeyOption = Some(SearchKey.Time))
+
+
+@data(
+  broadcast.frequency.trim,
+  dataClass = "frequency",
+  searchKeyOption = Some(SearchKey.Frequency))
+
+
+@data(broadcast.languages, dataClass = "languages", searchKeyOption = Some(SearchKey.Languages))
+
+
+@data(broadcast.targetZones, dataClass = "target")
+
+
+@data(broadcast.power,      dataClass = "power")
+@data(broadcast.modulation, dataClass = "modulation")
+@data(broadcast.azimuth,    dataClass = "azimuth")
+
+@data(broadcast.note, dataClass = "note")
+
+@data(
+  schedule.locationName(broadcast.locationId),
+  dataClass = "location-name",
+  searchKeyOption = Some(SearchKey.LocationName))
+@data(
+  schedule.locationCountryName(broadcast.locationId),
+  dataClass = "location-country",
+  searchKeyOption = Some(SearchKey.LocationCountry))
+@data(schedule.locations(broadcast.locationId).longitude, dataClass = "longitude")
+@data(schedule.locations(broadcast.locationId).latitude,  dataClass = "latitude")
+
+        <td class="more-info-cell">
+            <a class="more-info-link" id="@broadcast.id">Info</a>
+        </td>
+    </tr>
+    }
+
+    </tbody>
+
+</table>
+
+}
+}
+}
+
+<div id="details" style="display:none"></div>

@@ -1,0 +1,219 @@
+@charset "utf-8";
+
+@base: #e0e0e0;
+
+@link:   darken(#6495ed, 20%);  /* CornflowerBlue */
+@search: @link;
+@sort:   desaturate(@link, 50%);
+@pager:  desaturate(@link, 50%);
+
+
+body {
+
+    font-family: sans-serif;
+
+    color: darken(@base, 60%);
+
+
+    h1 { color: darken(@base, 20%) }
+
+
+    p, ul, ol { font-size: smaller }
+
+
+    .error-background-color { background-color: #f5a0a0 }
+
+
+    a {
+        color: @link;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+            &:hover { color: spin(@search, 180) }
+        }
+
+
+        &.search {
+            color: @search;
+            &:hover { color: spin(@search, 180) }
+        }
+
+        &.sort {
+            color: @sort;
+            &:hover { color: spin(@sort, 180) }
+        }
+
+        &.pager {
+            color: @sort;
+            &:hover { color: spin(@sort, 180) }
+
+            text-decoration: underline;
+        }
+    }
+
+
+    table {
+
+        .text-align-left   { text-align: left }
+        .text-align-center { text-align: center }
+
+
+        border-radius: 0.3em;
+        box-shadow: 0 0 1em 0.5em @base;
+
+        tr {
+
+            th {
+                border-radius: 0.2em;
+
+                font-size: smaller
+            }
+
+            &.caption {
+                th {
+                    color: darken(@base, 40%);
+                    background-color: @base;
+                }
+            }
+
+            &.search {
+                th {
+                    input {
+                        width: 98%;
+
+                        border-radius: 0.2em;
+
+
+                        &.error { .error-background-color }
+                    }
+
+                    button.search { width: 100% }
+
+                    &.pager {
+                        font-size: smaller;
+                        color: darken(@base, 40%);
+
+                        .text-align-left
+                    }
+
+                    &.border-bottom {
+                        border-bottom: solid thin @base
+                    }
+                }
+            }
+
+
+            &.data {
+
+                td {
+                    font-family: monospace;
+                    vertical-align: top;
+
+
+                    text-align: right;
+
+
+                    .white-space-nowrap { white-space: nowrap }
+
+
+                    .left-border  { border-left:  solid thin @base }
+                    .right-border { border-right: solid thin @base }
+                    .vertical-borders {
+                        .left-border;
+                        .right-border
+                    }
+
+
+
+                    &.station-name    { .text-align-left }
+                    &.station-country { .text-align-left; .right-border }
+
+
+                    &.date {
+                        .text-align-center;
+                        .white-space-nowrap;
+
+                        &.start { .left-border }
+                    }
+
+                    &.days { .text-align-center }
+
+                    &.time {
+                        .text-align-center;
+
+                        &.end { .right-border }
+                    }
+
+
+                    &.frequency {                   .vertical-borders }
+
+                    &.languages { .text-align-left; .vertical-borders }
+
+                    &.target    { .text-align-left; .vertical-borders }
+
+
+                    &.note      { .text-align-left; .vertical-borders }
+
+
+                    &.power      { .left-border }
+                    &.modulation { .text-align-center }
+                    &.azimuth    { .right-border }
+
+
+                    &.location-name    { .text-align-left; .left-border }
+                    &.location-country { .text-align-left }
+                    &.latitude { .right-border }
+
+
+                    &.more-info-cell {
+
+                        .text-align-center;
+                        .left-border;
+
+                        a.more-info-link {
+
+                            visibility: hidden;
+
+                            cursor: hand;
+                            cursor: pointer
+
+                        }
+                    }
+                }
+            }
+
+            &.data:hover {
+                background-color: lighten(@base, 8%);
+
+                td.more-info-cell {
+
+                    a.more-info-link { visibility: visible }
+
+                }
+            }
+
+
+            &.empty {
+                .text-align-center;
+
+                font-size: smaller
+            }
+
+
+            &.error {
+                font-size: smaller;
+
+                ul {
+                  font-size: inherit;
+
+                  li { .text-align-left }
+                }
+
+
+                .text-align-center
+            }
+
+        }
+    }
+}

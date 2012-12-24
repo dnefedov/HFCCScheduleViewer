@@ -1,0 +1,26 @@
+<h1>@Messages("app.title")</h1>
+
+<p>
+
+To upload new data, please follow these steps:
+
+    <ol>
+    <li>
+    download the file
+<a href="http://www.hfcc.org/data/b12/b12allx2.zip">http://www.hfcc.org/data/b12/b12allx2.zip</a>
+(located on
+<a href="http://www.hfcc.org/data/">HFCC Web site</a>)
+to your computer;
+    </li>
+
+    <li>
+after that, upload it from your computer to this page using the controls below.
+    </li>
+</ol>
+</p>
+
+@helper.form(action = routes.Application.uploaded, 'enctype -> "multipart/form-data") {
+
+<input type="file" name="schedule"> <button type="submit">Upload File</button>
+
+}
