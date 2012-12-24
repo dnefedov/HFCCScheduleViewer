@@ -1,0 +1,39 @@
+@charset "utf-8";
+body{font-family:sans-serif;color:#474747;}body h1{color:#adadad;}
+body p,body ul,body ol{font-size:smaller;}
+body .error-background-color{background-color:#f5a0a0;}
+body a{color:#185bd3;text-decoration:none;}body a:hover{text-decoration:underline;}body a:hover:hover{color:#d39018;}
+body a.search{color:#185bd3;}body a.search:hover{color:#d39018;}
+body a.sort{color:#536c98;}body a.sort:hover{color:#987f53;}
+body a.pager{color:#536c98;text-decoration:underline;}body a.pager:hover{color:#987f53;}
+body table{border-radius:0.3em;box-shadow:0 0 1em 0.5em #e0e0e0;}body table .text-align-left{text-align:left;}
+body table .text-align-center{text-align:center;}
+body table tr th{border-radius:0.2em;font-size:smaller;}
+body table tr.caption th{color:#7a7a7a;background-color:#e0e0e0;}
+body table tr.search th input{width:98%;border-radius:0.2em;}body table tr.search th input.error{background-color:#f5a0a0;}
+body table tr.search th button.search{width:100%;}
+body table tr.search th.pager{font-size:smaller;color:#7a7a7a;text-align:left;}
+body table tr.search th.border-bottom{border-bottom:solid thin #e0e0e0;}
+body table tr.data td{font-family:monospace;vertical-align:top;text-align:right;}body table tr.data td .white-space-nowrap{white-space:nowrap;}
+body table tr.data td .left-border{border-left:solid thin #e0e0e0;}
+body table tr.data td .right-border{border-right:solid thin #e0e0e0;}
+body table tr.data td .vertical-borders{border-left:solid thin #e0e0e0;border-right:solid thin #e0e0e0;}
+body table tr.data td.station-name{text-align:left;}
+body table tr.data td.station-country{text-align:left;border-right:solid thin #e0e0e0;}
+body table tr.data td.date{text-align:center;white-space:nowrap;}body table tr.data td.date.start{border-left:solid thin #e0e0e0;}
+body table tr.data td.days{text-align:center;}
+body table tr.data td.time{text-align:center;}body table tr.data td.time.end{border-right:solid thin #e0e0e0;}
+body table tr.data td.frequency{border-left:solid thin #e0e0e0;border-right:solid thin #e0e0e0;}
+body table tr.data td.languages{text-align:left;border-left:solid thin #e0e0e0;border-right:solid thin #e0e0e0;}
+body table tr.data td.target{text-align:left;border-left:solid thin #e0e0e0;border-right:solid thin #e0e0e0;}
+body table tr.data td.note{text-align:left;border-left:solid thin #e0e0e0;border-right:solid thin #e0e0e0;}
+body table tr.data td.power{border-left:solid thin #e0e0e0;}
+body table tr.data td.modulation{text-align:center;}
+body table tr.data td.azimuth{border-right:solid thin #e0e0e0;}
+body table tr.data td.location-name{text-align:left;border-left:solid thin #e0e0e0;}
+body table tr.data td.location-country{text-align:left;}
+body table tr.data td.latitude{border-right:solid thin #e0e0e0;}
+body table tr.data td.more-info-cell{text-align:center;border-left:solid thin #e0e0e0;}body table tr.data td.more-info-cell a.more-info-link{visibility:hidden;cursor:hand;cursor:pointer;}
+body table tr.data:hover{background-color:#f4f4f4;}body table tr.data:hover td.more-info-cell a.more-info-link{visibility:visible;}
+body table tr.empty{text-align:center;font-size:smaller;}
+body table tr.error{font-size:smaller;text-align:center;}body table tr.error ul{font-size:inherit;}body table tr.error ul li{text-align:left;}
