@@ -350,9 +350,8 @@ final object Schedule {
           // Skip header
           val dataLineIterator = lineIterator dropWhile { _.startsWith(";") }
 
-          // Check whether there exists some data about countries
           if (!dataLineIterator.hasNext)
-            "No valid country lines".failNel[CollectionType]
+            "No valid data lines".failNel[CollectionType]
           else {
             var collection = builder.createEmptyCollection
 
