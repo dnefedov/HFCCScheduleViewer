@@ -303,7 +303,6 @@ final object Schedule {
 
     }
 
-    // TODO: Proper placement.
     Logger.info(
       "Finished creating schedule from file [" + file.getAbsolutePath + "].")
 
@@ -314,10 +313,9 @@ final object Schedule {
         Some(schedule)
       }
       case Failure(f) => {
-        // TODO: Proper error message.
+        // TODO: Proper error handling and error message.
         Logger.error("Parsing failed, with the following errors:")
-
-        // f.foreach { Logger.error(_) }
+        f.foreach { Logger.error(_) }
 
         None
       }
@@ -365,10 +363,16 @@ final object Schedule {
               collection = builder.addElement(collection, element)
             }
 
-            // TODO: Proper placement.
-            Logger.info("Finished parsing zip entry [" + entryName + "].")
-
             collection.successNel[String]
+          }
+
+        } catch {
+
+          case ex: Exception => {
+
+            // TODO: Proper error handling and error message.
+            "Caught exception.".failNel[CollectionType]
+
           }
 
         } finally {
@@ -388,12 +392,14 @@ final object Schedule {
 
           }
 
+          Logger.info("Finished parsing zip entry [" + entryName + "].")
+
         }
 
       }
 
       case None => {
-        ("Zip entry " + entryName + "is not found in schedule file").
+        ("Zip entry " + entryName + " is not found in schedule file.").
           failNel[CollectionType]
       }
     }
