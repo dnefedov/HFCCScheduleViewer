@@ -275,7 +275,7 @@ final object Schedule {
 
     // TODO: Proper placement.
     Logger.info(
-      "Finished creating schedule from file [" + file.getAbsolutePath + "]...")
+      "Finished creating schedule from file [" + file.getAbsolutePath + "].")
 
     scheduleValidation match {
       case Success(schedule) => {
