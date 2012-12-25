@@ -56,7 +56,8 @@ object Application extends Controller {
 
         // Redirect(routes.Application.upload)
 
-        addCacheHeaders(Ok(views.html.main("Browse")(views.html.noschedule())))
+        addCacheHeaders(
+          Ok(views.html.main("Browse")(views.html.browsenoschedule())))
 
       }
 
@@ -168,7 +169,7 @@ object Application extends Controller {
         Ok(content)
       }
 
-      case _ => InternalServerError("TODO") // TODO
+      case None => Ok(views.html.detailsnoschedule())
     }
 
   }
