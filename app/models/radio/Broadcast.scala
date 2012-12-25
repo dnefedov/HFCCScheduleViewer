@@ -11,6 +11,7 @@ import models.general.{AbstractIdentifiable, Identifiable}
  */
 final class Broadcast private[radio] (
     id: Identifiable#Id,
+    val organizationId: String,
     val stationId: String,
     val countryId: String,
     val startDateText: String,

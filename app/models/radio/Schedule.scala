@@ -25,6 +25,7 @@ import types.Union._
  */
 final class Schedule private (
     val countries: Schedule#MapIdTo[Country],
+    val organizations: Schedule#MapIdTo[Organization],
     val stations:  Schedule#MapIdTo[Station],
     val locations: Schedule#MapIdTo[Location],
     val broadcasts: Schedule#SeqOf[Broadcast]) {
@@ -124,6 +125,27 @@ final object Schedule {
 
     }
 
+    final object OrganizationMapBuilder
+      extends AbstractMapBuilder[Organization] {
+
+      def createElement(line: String): Organization = {
+
+        // TODO: Handle error lengths
+        val id = line.substring(0, 3)
+
+        val name =
+          (if (line.length < 55)
+            line.substring(4)
+          else
+            line.substring(4, 55)).trim
+
+        val unions = if (line.length < 145) "" else line.substring(145).trim
+
+        new Organization(id, name, unions)
+      }
+
+    }
+
     final object StationMapBuilder extends AbstractMapBuilder[Station] {
 
       def createElement(line: String): Station = {
@@ -199,11 +221,13 @@ final object Schedule {
         val languages     = line.substring(102, 112).trim
         val countryId     = line.substring(113, 116).trim
         val stationId     = line.substring(117, 120)
+        val organizationId = line.substring(121, 124)
         val note = if (line.length > 151) line.substring(151).trim else ""
 
 
         new Broadcast(
           id,
+          organizationId,
           stationId,
           countryId,
           startDateText,
@@ -249,6 +273,11 @@ final object Schedule {
       "admin.txt",
       builders.CountryMapBuilder)
 
+    val organizationsValidation = parseZipEntry(
+      zipFile,
+      "fmorg.txt",
+      builders.OrganizationMapBuilder)
+
     val stationsValidation = parseZipEntry(
       zipFile,
       "broadcas.txt",
@@ -264,12 +293,13 @@ final object Schedule {
       "B12all00.TXT", // TODO: Use regexp
       new builders.BroadcastMapBuilder)
 
-    val scheduleValidation = (countriesValidation  |@|
-                               stationsValidation  |@|
-                               locationsValidation |@|
+    val scheduleValidation = (countriesValidation      |@|
+                               organizationsValidation |@|
+                               stationsValidation      |@|
+                               locationsValidation     |@|
                                broadcastsValidation) {
 
-      new Schedule(_, _, _, _)
+      new Schedule(_, _, _, _, _)
 
     }
 

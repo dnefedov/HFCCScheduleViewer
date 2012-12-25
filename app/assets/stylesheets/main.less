@@ -18,7 +18,9 @@ body {
     h1 { color: darken(@base, 20%) }
 
 
-    p, ul, ol { font-size: smaller }
+    .font-size-smaller { font-size: smaller }
+
+    p, ul, ol { .font-size-smaller }
 
 
     .error-background-color { background-color: #f5a0a0 }
@@ -58,6 +60,11 @@ body {
         .text-align-left   { text-align: left }
         .text-align-center { text-align: center }
 
+        .th-caption {
+            color: darken(@base, 40%);
+            background-color: @base;
+        }
+
 
         border-radius: 0.3em;
         box-shadow: 0 0 1em 0.5em @base;
@@ -67,14 +74,11 @@ body {
             th {
                 border-radius: 0.2em;
 
-                font-size: smaller
+                .font-size-smaller
             }
 
             &.caption {
-                th {
-                    color: darken(@base, 40%);
-                    background-color: @base;
-                }
+                th { .th-caption }
             }
 
             &.search {
@@ -91,7 +95,7 @@ body {
                     button.search { width: 100% }
 
                     &.pager {
-                        font-size: smaller;
+                        .font-size-smaller;
                         color: darken(@base, 40%);
 
                         .text-align-left
@@ -197,12 +201,12 @@ body {
             &.empty {
                 .text-align-center;
 
-                font-size: smaller
+                .font-size-smaller
             }
 
 
             &.error {
-                font-size: smaller;
+                .font-size-smaller;
 
                 ul {
                   font-size: inherit;
@@ -215,5 +219,30 @@ body {
             }
 
         }
+
+        &.details {
+
+            tr {
+                .font-size-smaller;
+
+                th {
+                    .th-caption;
+
+                    .font-size-smaller;
+
+                    .text-align-left
+                }
+
+                td {
+                    .font-size-smaller;
+
+                    vertical-align: top;
+
+                    color: darken(@base, 60%)
+                }
+            }
+
+        }
+
     }
 }

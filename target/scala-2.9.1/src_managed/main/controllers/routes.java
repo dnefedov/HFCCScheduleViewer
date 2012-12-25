@@ -1,6 +1,6 @@
 // @SOURCE:/home/dmitry/Scala/HFCCScheduleViewer/conf/routes
 // @HASH:6e3c81b597ed63f45a520c66065abc60d63e989d
-// @DATE:Tue Dec 25 14:48:51 MSK 2012
+// @DATE:Tue Dec 25 18:11:20 MSK 2012
 
 package controllers;
 

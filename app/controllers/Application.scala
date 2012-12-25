@@ -162,7 +162,8 @@ object Application extends Controller {
 
         // TODO: Check for existence.
         val broadcast = someSchedule.broadcasts(broadcastId - 1)
-        val content = views.html.details(someSchedule, broadcast)
+        val organization = someSchedule.organizations(broadcast.organizationId)
+        val content = views.html.details(someSchedule, organization)
 
         Ok(content)
       }

@@ -1,152 +1,24 @@
-@(schedule: models.radio.Schedule, broadcast: models.radio.Broadcast)
+@(schedule: models.radio.Schedule, organization: models.radio.Organization)
 
-<table>
-
-    <thead>
-
-        <tr>
-            <th rowspan="2">
-                <a class="sort" href="sort=station">Station</a>
-            </th>
-            <th rowspan="2">
-                <a class="sort" href="sort=country">Country</a>
-            </th>
-
-            <th colspan="2">Date</th>
-
-            <th rowspan="2">Days of Week</th>
-
-            <th colspan="2">Time</th>
-
-            <th rowspan="2">
-                <a class="sort" href="sort=frequency">Frequency</a>
-            </th>
-
-            <th rowspan="2">
-                <a class="sort" href="sort=languages">Languages</a>
-            </th>
-
-            <th rowspan="2">Target Zones</th>
-
-            <th rowspan="2">
-                <a class="sort" href="sort=power">Power</a>
-            </th>
-            <th rowspan="2">
-                <a class="sort" href="sort=modulation">Modulation</a>
-            </th>
-            <th rowspan="2">
-                <a class="sort" href="sort=azimuth">Azimuth</a>
-            </th>
-
-            <th rowspan="2">
-                <a class="sort" href="sort=note">Note</a>
-            </th>
-
-            <th colspan="4">Location</th>
-        </tr>
-
-        <tr>
-            <th>
-                <a class="sort" href="sort=startdate">Start</a>
-            </th>
-            <th>
-                <a class="sort" href="sort=enddate">End</a>
-            </th>
-
-            <th>
-                <a class="sort" href="sort=starttime">Start</a>
-            </th>
-            <th>
-                <a class="sort" href="sort=endtime">End</a>
-            </th>
-
-            <th>
-                <a class="sort" href="sort=location">Name</a>
-            </th>
-            <th>
-                <a class="sort" href="sort=locationcountry">Country</a>
-            </th>
-            <th>Longitude</th>
-            <th>Latitude</th>
-        </tr>
-
-    </thead>
+<table class="details">
 
     <tbody>
 
-            <tr>
-                <td class="station">
-                    <a class="search" href="station=@broadcast.stationId">
-                        @schedule.stations(broadcast.stationId).name
-                    </a>
-                </td>
-                <td class="country">
-                    <a class="search" href="country=@broadcast.countryId">
-                        @schedule.countries(broadcast.countryId).name
-                    </a>
-                </td>
+        <tr>
 
-                <td class="date">
-                    <a class="search" href="startdate=@broadcast.startDateText">
-                        @broadcast.startDateText
-                    </a>
-                </td>
-                <td class="date">
-                    <a class="search" href="enddate=@broadcast.endDateText">
-                        @broadcast.endDateText
-                    </a>
-                </td>
+            <th>Frequency Management Organization</th>
 
-                <td class="days">@broadcast.daysOfWeek</td>
+            <td>@organization.name</td>
 
-                <td class="time">
-                    <a class="search" href="starttime=@broadcast.startTimeText">
-                        @broadcast.startTimeText
-                    </a>
-                </td>
-                <td class="time">
-                    <a class="search" href="endtime=@broadcast.endTimeText">
-                        @broadcast.endTimeText
-                    </a>
-                </td>
+        </tr>
 
-                <td>
-                    <a class="search" href="frequency=@broadcast.frequency">
-                        @broadcast.frequency
-                    </a>
-                </td>
+        <tr>
 
-                <td class="langs">
-                    <a class="search" href="languages=@broadcast.languages">
-                        @broadcast.languages
-                    </a>
-                </td>
+            <th>Broadcasting Unions</th>
 
-                <td class="target">@broadcast.targetZones</td>
+            <td>@organization.unions</td>
 
-                <td>@broadcast.power</td>
-                <td>@broadcast.modulation</td>
-                <td>@(broadcast.azimuth)°</td>
-
-                <td class="note">@broadcast.note</td>
-
-                <td class="location">
-                    <a class="search" href="location=@broadcast.locationId">
-                        @schedule.locations(broadcast.locationId).name
-                    </a>
-                </td>
-                <td class="country">
-                    <a class="search"
-                        href="locationcountry=@schedule.locations(broadcast.locationId).countryId">
-                        @{
-                        val location = schedule.locations(broadcast.locationId);
-                        schedule.countries(location.countryId).name
-                        }
-                    </a>
-                </td>
-                <td>@schedule.locations(broadcast.locationId).longitude</td>
-                <td>@schedule.locations(broadcast.locationId).latitude</td>
-            </tr>
+        </tr>
 
     </tbody>
 
