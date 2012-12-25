@@ -1,6 +1,8 @@
 package types
 
 /**
+ * Code copied from http://stackoverflow.com/a/6312508
+ *
  * Created with IntelliJ IDEA.
  * User: dnefedov
  * Date: 12/6/12
