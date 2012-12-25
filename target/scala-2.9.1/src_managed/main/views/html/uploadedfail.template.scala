@@ -38,7 +38,7 @@ Seq[Any](format.raw/*1.1*/("""<h1>"""),_display_(Seq[Any](/*1.6*/Messages("app.t
 }
                 /*
                     -- GENERATED --
-                    DATE: Mon Dec 24 17:25:01 MSK 2012
+                    DATE: Tue Dec 25 14:36:32 MSK 2012
                     SOURCE: /home/dmitry/Scala/HFCCScheduleViewer/app/views/uploadedfail.scala.html
                     HASH: 0d993ecf70e431ccbc67934332a1c3ec1f759105
                     MATRIX: 576->0|615->5|657->26|807->141|821->147|865->170

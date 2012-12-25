@@ -56,7 +56,7 @@ after that, upload it from your computer to this page using the controls below.
 }
                 /*
                     -- GENERATED --
-                    DATE: Mon Dec 24 17:25:02 MSK 2012
+                    DATE: Tue Dec 25 14:36:34 MSK 2012
                     SOURCE: /home/dmitry/Scala/HFCCScheduleViewer/app/views/upload.scala.html
                     HASH: 185f1048e7d6d2cd386bd9d685d9926f5661f71d
                     MATRIX: 570->0|609->5|651->26|1092->432|1106->438|1193->516|1233->518
