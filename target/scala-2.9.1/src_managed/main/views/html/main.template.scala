@@ -71,7 +71,7 @@ Seq[Any](format.raw/*1.32*/("""
 }
                 /*
                     -- GENERATED --
-                    DATE: Tue Dec 25 18:11:16 MSK 2012
+                    DATE: Wed Dec 26 00:08:32 MSK 2012
                     SOURCE: /home/dmitry/Scala/HFCCScheduleViewer/app/views/main.scala.html
                     HASH: 2a8deb062226ab325c11cf9c91faf50592e58d75
                     MATRIX: 509->1|616->31|780->160|822->181|861->185|887->190|1372->628|1475->684|1667->829|1730->845|1856->935|1871->941|1931->979|2042->1054|2057->1060|2111->1092|2184->1129|2213->1136
